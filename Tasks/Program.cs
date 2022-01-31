@@ -1,56 +1,85 @@
 ﻿using System;
-
 namespace DateComparisonTask
 {
     public class DateComparisonTask
     {
-        static bool i = true;
+        static bool flagToEnableCheckDate = true;
+
 
         public static void Main(string[] args)
         {
-           
+
             string userInp1;
             string userInp2;
-            //DateComparisonTask dt = new DateComparisonTask();
+
             do
             {
-                Console.WriteLine("Please Enter first date in string format ,Ex11042002");
+                Console.WriteLine("Please Enter first date in string format,Ex11042002");
                 userInp1 = Console.ReadLine();
-                Console.WriteLine("Please Enter second date in string format ,Ex11042002");
+                Console.WriteLine("Please Enter second date in string format,Ex11042002");
                 userInp2 = Console.ReadLine();
 
-                DateComparisonTask.checkDate(userInp1, userInp2);
+
+                try
+                {
+                    //Calling CheckDate method here with class name it could throw an error so i have bound it in try block
+                    flagToEnableCheckDate = CheckDate(userInp1, userInp2);
+                    if (flagToEnableCheckDate)
+                    {
+                        throw new Exception();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Input is not Valid");
+                }
+
+                //Taking again user input
                 Console.WriteLine("Do you want to compare again y/n");
                 string useroptn;
                 useroptn = Console.ReadLine();
-                if (useroptn == "y"|| useroptn == "Y")
+                if (useroptn == "y" || useroptn == "Y")
                 {
-                    i = true;
+                    flagToEnableCheckDate = true;
                 }
                 else
                 {
-                    i = false;
+                    flagToEnableCheckDate = false;
                 }
 
 
             }
-            while (i);
+            while (flagToEnableCheckDate);
         }
 
-
         //Method that check(validate) a date is correct or not
-        public static void checkDate(string userInp1, string userInp2)
+        public static bool CheckDate(string userInp1, string userInp2)
 
         {
-            string day1, month1, year1;
-            day1 = userInp1.Substring(0, 2);
-            month1 = userInp1.Substring(2, 2);
-            year1 = userInp1.Substring(4, 4);
+            int day1 = 0, month1 = 0, year1 = 0;
+            int day2 = 0, month2 = 0, year2 = 0;
+            try
+            {
+                day1 = int.Parse(userInp1.Substring(0, 2));
+                month1 = int.Parse(userInp1.Substring(2, 2));
+                year1 = int.Parse(userInp1.Substring(4, 4));
 
-            string day2, month2, year2;
-            day2 = userInp2.Substring(0, 2);
-            month2 = userInp2.Substring(2, 2);
-            year2 = userInp2.Substring(4);
+
+                day2 = int.Parse(userInp2.Substring(0, 2));
+                month2 = int.Parse(userInp2.Substring(0, 2));
+                year2 = int.Parse(userInp2.Substring(0, 2));
+                if (DateTime.DaysInMonth(year1, month1) != day1 && DateTime.DaysInMonth(year2, month2) != day2)
+                {
+                    //Console.WriteLine("Days is not available!!");
+                    return false;
+
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Input is not valid!!");
+                return false;
+            }
 
             string mes1 = "Date1 is Earlier than date2";
             string mes2 = "Date2 is Earlier than date1";
@@ -67,56 +96,58 @@ namespace DateComparisonTask
             else
             {
 
-                if (int.Parse(day1) < 31 && int.Parse(day1) > 0 && int.Parse(month1) < 12 && int.Parse(month1) > 0 && int.Parse(year1) < 2022)
+                if (day1 < 31 && day1 > 0 && month1 < 12 && month1 > 0)
                 {
-                    
-                    if (int.Parse(day2) < 31 && int.Parse(day2) > 0 && int.Parse(month2) < 12 && int.Parse(month2) > 0 && int.Parse(year2) < 2022)
+
+                    if (day2 < 31 && day2 > 0 && month2 < 12 && month2 > 0)
                     {
 
-                       
-                         if(int.Parse(year1)<int.Parse(year2))
-                         {
-                              Console.WriteLine(mes1);
-                         }
-                         if(int.Parse(year1) > int.Parse(year2))
-                         {
+
+                        if (year1 < year2)
+                        {
+                            Console.WriteLine(mes1);
+                        }
+                        if (year1 > year2)
+                        {
                             Console.WriteLine(mes2);
-                         }
-                         if(int.Parse(year1) == int.Parse(year2))
-                         {
-                            if(int.Parse(month1) < int.Parse(month2))
+                        }
+                        if (year1 == year2)
+                        {
+                            if (month1 < month2)
                             {
                                 Console.WriteLine(mes1);
                             }
-                            if(int.Parse(month1) > int.Parse(month2))
+                            if (month1 > month2)
                             {
                                 Console.WriteLine(mes2);
                             }
-                            if(int.Parse(month1) == int.Parse(month2))
+                            if (month1 == month2)
                             {
-                                if(int.Parse(day1) < int.Parse(day2))
+                                if (day1 < day2)
                                 {
                                     Console.WriteLine(mes1);
                                 }
-                                if (int.Parse(day1) > int.Parse(day2))
+                                if (day1 > day2)
                                 {
-                                    
+
                                     Console.WriteLine(mes2);
-                                 
+
                                 }
 
                             }
-                            if(int.Parse(day1) == int.Parse(day2))
+                            if (day1 == day2)
                             {
                                 Console.WriteLine("Both dates are equal!!");
+
                             }
-                         }
-                             
+                        }
+
                     }
 
                     else
                     {
                         Console.WriteLine("Sorry your date is invalid enter a valid date!!");
+                        return false;
                     }
 
 
@@ -124,8 +155,10 @@ namespace DateComparisonTask
                 else
                 {
                     Console.WriteLine("Sorry your date is invalid enter a valid date!!");
+                    return false;
                 }
             }
+            return true;
         }
     }
 }
