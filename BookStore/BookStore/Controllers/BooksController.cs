@@ -9,7 +9,7 @@ namespace BookStore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-   
+    [Authorize]
     public class BooksController : ControllerBase
     {
         private readonly IBookRepository _bookRepository;
@@ -25,6 +25,7 @@ namespace BookStore.Controllers
             return Ok(books);
         }
         [HttpGet("{id}")]
+       
         public async Task<IActionResult> GetBookById([FromRoute] int id)
         {
             var book = await _bookRepository.GetBookByIdAsync(id);
@@ -38,6 +39,7 @@ namespace BookStore.Controllers
         public async Task<IActionResult> AddNewBook([FromBody]BookModel bookModel)
         {
             var id = await _bookRepository.AddBookAsync(bookModel);
+            
             return Ok("Added Succesfully");
             return CreatedAtAction(nameof(GetBookById), new { id = id, controller = "books" }, id);
         }
