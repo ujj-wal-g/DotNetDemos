@@ -19,7 +19,7 @@ namespace ModelValidationDemo.Validator
 
             RuleFor(x => x.FirstName)
                 .Matches("^[A-Za-z]+$")
-                .WithMessage("First Name contains only alphabets");
+                .WithMessage("First Name only contains alphabets");
 
           //  Validations for Lastname
             RuleFor(x => x.LastName)
@@ -33,19 +33,21 @@ namespace ModelValidationDemo.Validator
 
             RuleFor(x => x.LastName)
                 .Matches("^[A-Za-z]+$")
-                .WithMessage("Last Name only alphabets");
+                .WithMessage("Last Name only contains alphabets");
 
            // Validations for Email
             RuleFor(x=>x.Email)
                 .NotEmpty()
                 .NotNull()
-                .WithMessage("Email can not be empty or null");
+                .Matches("^[A-Za-z._]{3,}@[A-Za-z]{3,}[.]{1}[A-Za-z]{2,6}([.][A-za-z]{2,6})?$")
+                .WithMessage("Email is not valid");
 
             RuleFor(x => x.Email).EmailAddress();
 
             //Validations for person Weight
             RuleFor(person => person)
                 .Must(x => x.WeightInLbs <= 400 && x.WeightInLbs >= 1)
+                
                 .WithMessage("Weight must be between 1 to 400 pounds");
 
             //Validations for son's date of birth
@@ -63,11 +65,11 @@ namespace ModelValidationDemo.Validator
                 .Must(x => x.DateOfBirth > x.FatherDateOfBirth)
                .WithMessage("Father's date of birth should be prior than son's date of birth");
 
-            // //Validations for MobileNumber
+             //Validations for MobileNumber
             RuleFor(x => x.MobileNumber)
                 .NotNull()
                 .NotEmpty()
-                .Matches(@"^91?\d{10}$").WithMessage("Invalid Mobile number");
+                .Matches(@"^\d{10}$").WithMessage("Invalid Mobile number");
 
            
         }
