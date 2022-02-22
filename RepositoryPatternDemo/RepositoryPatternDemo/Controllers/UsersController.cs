@@ -21,7 +21,7 @@ namespace RepositoryPatternDemo.Controllers
             
         }
         [HttpPost]
-        public async Task<IActionResult> Post(User users)
+        public async Task<IActionResult> Post(Users users)
         {
             if(ModelState.IsValid)
             {
@@ -34,6 +34,16 @@ namespace RepositoryPatternDemo.Controllers
             }
             return new JsonResult("Something went wrong ") { StatusCode = 500 };
         }
-       
+        [HttpGet("id")]
+        public async Task<IActionResult> GetItem(Guid id)
+        {
+            var user = await _unitOfWork.User.GetById(id);
+            if(user == null)
+            {
+                return NotFound();
+            }
+            return Ok(user);
+        }
+        
     }
 }

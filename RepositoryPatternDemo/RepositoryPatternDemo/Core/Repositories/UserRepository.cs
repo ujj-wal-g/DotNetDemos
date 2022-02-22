@@ -7,12 +7,12 @@ using System.Collections.Generic;
 
 namespace RepositoryPatternDemo.Core.Repositories
 {
-    public class UserRepository : GenericRepository<User>,IUserRepository
+    public class UserRepository : GenericRepository<Users>,IUserRepository
     {
         public UserRepository(ApplicationDbContext context, ILogger logger) : base(context, logger)
         {
         } 
-        public async override Task<IEnumerable<User>>All()
+        public async override Task<IEnumerable<Users>>All()
         {
             try
             {
@@ -21,10 +21,10 @@ namespace RepositoryPatternDemo.Core.Repositories
             catch (Exception ex)
             {
                 _logger.LogError(ex,"{Repo}All method error",typeof(UserRepository));
-                return new List<User>();    
+                return new List<Users>();    
             }
         }
-        public override async Task<bool> Upsert(User entity)
+        public override async Task<bool> Upsert(Users entity)
         {
             try 
             {

@@ -1,6 +1,6 @@
 ﻿namespace RepositoryPatternDemo.Models
 {
-    public class User
+    public class Users
     {
         public Guid  Id { get; set; }
         public string FirstName { get; set; }

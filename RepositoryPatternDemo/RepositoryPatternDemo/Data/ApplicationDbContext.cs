@@ -10,6 +10,6 @@ namespace RepositoryPatternDemo.Data
 
         }
   
-        public DbSet<User> users { get; set; }
+        public DbSet<Users> users { get; set; }
     }
 }

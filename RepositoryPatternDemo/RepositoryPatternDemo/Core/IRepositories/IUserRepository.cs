@@ -2,7 +2,7 @@
 
 namespace RepositoryPatternDemo.Core.IRepositories
 {
-    public interface IUserRepository:IGenricRepository<User>
+    public interface IUserRepository:IGenricRepository<Users>
     {
     }
 }
