@@ -14,10 +14,12 @@ namespace RepositoryPatternDemo.Controllers
         private readonly ILogger<UsersController> _logger;
         private readonly IUnitOfWork _unitOfWork;
         
+        
         public UsersController(ILogger<UsersController> logger,IUnitOfWork unitOfWork)
         {
             _logger = logger;
             _unitOfWork = unitOfWork;
+          
             
         }
         [HttpPost]
@@ -44,6 +46,30 @@ namespace RepositoryPatternDemo.Controllers
             }
             return Ok(user);
         }
-        
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var user = await _unitOfWork.User.All();
+            return Ok(user);
+        }
+        [HttpPut]
+        public async Task<IActionResult> UpdateItem( Users users)
+        {
+          
+            await _unitOfWork.User.Upsert(users);
+            await _unitOfWork.CompleteAsync();
+            return NoContent();
+
+        }
+        [HttpDelete]
+        public async Task<IActionResult> DeleteItem(Guid id)
+        {
+            await _unitOfWork.User.Delete(id);
+            await _unitOfWork.CompleteAsync();
+            return Ok();
+
+        }
+
+
     }
 }

@@ -11,11 +11,11 @@ namespace RepositoryPatternDemo.Core.Repositories
         protected DbSet<T> dbset;
 
         protected readonly ILogger _logger;
-        public GenericRepository(ApplicationDbContext context,ILogger logger)
+        public GenericRepository(ApplicationDbContext context, ILogger logger)
         {
-            _context= context;
-            _logger= logger;
-            this.dbset= context.Set<T>();
+            _context = context;
+            _logger = logger;
+            this.dbset = context.Set<T>();
         }
 
         public virtual async Task<IEnumerable<T>> All()
@@ -25,16 +25,16 @@ namespace RepositoryPatternDemo.Core.Repositories
 
         public virtual async Task<T> GetById(Guid id)
         {
-           return await dbset.FindAsync(id);
+            return await dbset.FindAsync(id);
         }
 
-        public virtual  async Task<bool> Add(T entity)
+        public virtual async Task<bool> Add(T entity)
         {
             await dbset.AddAsync(entity);
             return true;
         }
 
-        public virtual  Task<bool> Upsert(T entity)
+        public virtual async Task<bool> Upsert(T entity)
         {
             throw new NotImplementedException();
         }
@@ -44,9 +44,5 @@ namespace RepositoryPatternDemo.Core.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<T>> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-    }
+    }   
 }

@@ -12,7 +12,7 @@ namespace RepositoryPatternDemo.Core.Repositories
         public UserRepository(ApplicationDbContext context, ILogger logger) : base(context, logger)
         {
         } 
-        public async override Task<IEnumerable<Users>>All()
+        public async override Task<IEnumerable<Users>> All()
         {
             try
             {
@@ -28,7 +28,7 @@ namespace RepositoryPatternDemo.Core.Repositories
         {
             try 
             {
-                var existingUser = await dbset.Where(x => x.Id == entity.Id).FirstOrDefaultAsync();
+                var existingUser = await dbset.FindAsync(entity.Id);
                 if (existingUser == null)
                     return await Add(entity);
                 existingUser.FirstName = entity.FirstName;
