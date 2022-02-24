@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Queries>
+	<AddInformation>
+		INSERT INTO crudoperation.crudoperationapplication(UserName,EmailId,MobileNo,Gender,Salary)Values(@UserName,@EmailId,@MobileNo,@Gender,@Salary);
+	</AddInformation>
+</Queries>
