@@ -1,6 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Queries>
 	<AddInformation>
-		INSERT INTO crudoperation.crudoperationapplication(UserName,EmailId,MobileNo,Gender,Salary)Values(@UserName,@EmailId,@MobileNo,@Gender,@Salary);
+		INSERT INTO crudoperation.crudoperationapplication(UserName,EmailId,MobileNo,Gender,Salary,IsActive)Values(@UserName,@EmailId,@MobileNo,@Gender,@Salary,@IsActive);
 	</AddInformation>
+	<ReadAllInformation>
+		SELECT * FROM crudoperation.crudoperationapplication
+	</ReadAllInformation>
+	<UpdateAllInformation>
+		UPDATE crudoperation.crudoperationapplication
+		SET UserName = @UserName,
+		EmailId = @EmailId,
+		MobileNo = @MobileNo,
+		Gender = @Gender,
+		Salary = @Salary
+		WHERE UserId = @UserId;
+	</UpdateAllInformation>
+	<DeleteInformation>
+		DELETE FROM crudoperation.crudoperationapplication
+		 WHERE UserId=@UserId;
+	</DeleteInformation>
+	<GetAllDeleteInformation>
+		SELECT * FROM crudoperation.crudoperationapplication
+		WHERE IsActive=0;
+	</GetAllDeleteInformation>
 </Queries>
